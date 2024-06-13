@@ -1,0 +1,166 @@
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu+Sans+Mono:ital,wght@0,400..700;1,400..700&display=swap');
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Ubuntu Sans Mono", monospace;
+    scroll-behavior: smooth;
+    text-decoration: none;
+    cursor: url(./assets/icons8-cursor-20.png), auto;
+   
+}
+
+
+
+/*header styling*/
+
+.header{
+    background: lightgrey;
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header h1{
+    font-size: 40px;
+    font-weight: 700;
+    color: rgb(45, 43, 43);
+}
+nav{
+    display: flex;
+    list-style-type: none;
+    gap: 20px;
+    padding: 10px;
+}
+
+nav a{
+    text-decoration: none;
+    border-style: solid;
+    border-color: grey;
+    border-radius: 10px;
+    padding: 5px;
+    color: black;
+    transition: background-color grey 10ms;
+}
+
+nav a:hover{
+     background-color: grey;
+     box-shadow: 0px 2px 4px 0 rgba(158, 153, 153, 0.97);
+}
+/*the search option*/
+.search{
+    text-align: center;
+    padding: 8vh 0 5vh 0;
+}
+
+.search input{
+    width: 20em;
+    height: 3em;
+    border-radius: 10px;
+    padding: 0.5em 1em;
+    border: solid black;
+    outline:none;
+}
+.search button{
+    width: 3em;
+    height: 3em;
+    border-radius: 10px;
+    border: none;
+}
+
+.search button:hover{
+    transform: scale(1.03);
+    transition: 0.5ms;
+}
+
+/*Main info styling*/
+
+.card{
+    width: 67vw;
+    height: 53vh;
+    margin: 0 auto;
+    background-color: red;
+}
+.card h2{
+
+    font-size: 20px;
+    font-weight: 700;
+    color: rgb(255, 255, 255);
+    padding-left: 8vh;
+    padding-top: 3vh;
+}
+
+.card h1{
+    font-size: 40px;
+    font-weight: 700;
+    color: rgb(255, 255, 255);
+    padding-left: 8vh;
+    padding-bottom: 1.8vh;
+}
+
+.card h3{
+    font-size: 20px;
+    font-weight: 700;
+    color: rgb(255, 255, 255);
+    margin: 0 0 0 2.5vw;
+}
+
+/*Styled the entire details section below*/
+.details{
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    padding-left: 10vw;
+    margin-top: -25vh;
+    font-weight: 600;
+    color: aliceblue;
+}
+
+/*cols and cols img were the icons and description which was provided*/
+col{
+    display: flex;
+    align-items: center;
+}
+
+.col img{
+    width: 80px;
+    margin-right: 5px;
+    padding-bottom: 2vh;
+    
+}
+
+.col img:hover{
+    transform: scale(1.03);
+    transition: 0.5ms;
+}
+
+/*To hide the card for when the user searches something then only 
+    it will apear*/
+.card{
+    display: none;
+}
+
+.map{
+    width: 67vw;
+    height: 53vh;
+    margin: 0 auto;
+}
+
+/*This is the for the gif*/
+.error{
+    z-index: 1000;
+    top: -100vh;
+    left: 43rem;
+    position: relative;
+    display: none;
+}
+
+.error-message{
+    font-size: 20px;
+    font-weight: 700;
+    color: rgb(255, 255, 255);
+    padding-left: 5.5vw;
+}
+
+
