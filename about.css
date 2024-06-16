@@ -1,32 +1,85 @@
-@import url('https://fonts.googleapis.com/css2?family=Ubuntu+Sans+Mono:ital,wght@0,400..700;1,400..700&display=swap');
+/* Reset and general styling */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: "Ubuntu Sans Mono", monospace;
-    scroll-behavior: smooth;
-    text-decoration: none;
-}
-.bg{
-    height: 300px;
-    width: 1518px;
-    background-image: url(./assets/about\ bg.png);
-}
-p{
-    text-align: center;
-    font-size: 45px;
-    font-weight: 700;
-    padding-top: 15vh;
-    color: white;
-}
-.content{
-    height: 80vh;
-    width: 100%;
 }
 
-h3{
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #111;
+    color: #eee;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 800px;
+    margin: 20px auto;
+    /* Added margin */
+    padding: 20px;
+    background-color: #222;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    border-radius: 8px;
+}
+
+.header {
     text-align: center;
-    margin: 7vh 30vw 0 30vw;
-    line-height: 4vh;
-    z-index: 2;
+    margin-bottom: 30px;
+}
+
+.header h1 {
+    font-size: 2.5rem;
+    color: #eee;
+    font-weight: bold;
+}
+
+.content {
+    padding: 20px;
+}
+
+.section {
+    margin-bottom: 30px;
+}
+
+.section h2 {
+    font-size: 1.8rem;
+    color: #eee;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.section p {
+    font-size: 1.1rem;
+    color: #ccc;
+    line-height: 1.8;
+}
+
+.section ul {
+    list-style-type: disc;
+    margin-left: 20px;
+}
+
+.footer {
+    text-align: center;
+    margin-top: 30px;
+    padding-top: 10px;
+    border-top: 1px solid #444;
+    color: #ccc;
+    font-size: 0.9rem;
+}
+
+.button {
+    display: inline-block;
+    padding: 10px 20px;
+    margin-top: 10px;
+    background-color: #555;
+    color: #eee;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.button:hover {
+    background-color: #777;
 }
