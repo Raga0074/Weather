@@ -1,63 +1,95 @@
 //this is the api config from the openweathermap
 
-const apiKey ="b5673893492841b67eedbde47e72f700";
-const apiUrl ="https://api.openweathermap.org/data/2.5/weather?units=metric&q=";
-
-//this is variables for the elements on the html page that will be displayed 
+const apiKey = "YOUR-API-KEY";
+const apiUrl = "https://api.openweathermap.org/data/2.5/weather?units=metric&q=";
 const searchBox = document.querySelector(".search input");
-const searchBtn = document.querySelector(".search button"); 
-const weatherIcon = document.querySelector(".weather-icon"); 
+const searchBtn = document.querySelector(".search button");
+const weatherIcon = document.querySelector(".weather-icon");
 
-//this is the function that will be called when the search button is clicked
-async function checkWeather(city){
-    const response = await fetch(apiUrl + city + `&appid=${apiKey}`);
+var map = L.map('map').setView([51.505, -0.09], 13); // Initial coordinates
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 19,
+}).addTo(map);
 
-//this is a condition that will be executed on the basis of users input
-    if(response.status == 404){
-        document.querySelector(".error").style.display = "block";
-        document.querySelector(".card").style.display = "none";
-    }else{
-        var data = await response.json();
-//this is for the info which will be fetched to be displayed in the place of the classes
+
+// Function to fetch weather data and update UI
+async function checkWeather(city) {
+    try {
+        const response = await fetch(`${apiUrl}${city}&units=metric&appid=${apiKey}`);
+        if (!response.ok) {
+            throw new Error('Weather data not found');
+        }
+        const data = await response.json();
+        updateWeatherUI(data);
+    } catch (error) {
+        displayError();
+    }
+}
+
+// Function to update weather information on the UI
+function updateWeatherUI(data) {
     document.querySelector(".city").innerHTML = "🏠" + data.name;
     document.querySelector(".temp").innerHTML = Math.round(data.main.temp) + "°C";
     document.querySelector(".description").innerHTML = data.weather[0].description;
     document.querySelector(".humidity").innerHTML = data.main.humidity + "%";
     document.querySelector(".wind").innerHTML = data.wind.speed + "km/h";
     document.querySelector(".feels_like").innerHTML = Math.round(data.main.feels_like) + "°C";
-    document.querySelector(".pressure").innerHTML = data.main.pressure +"  "+ "hPa";
+    document.querySelector(".pressure").innerHTML = data.main.pressure + " hPa";
     document.querySelector(".country").innerHTML = data.sys.country;
-//this is for the weather images to be matched with the weather data
-    if (data.weather[0].main == "Clear") {
-        weatherIcon.src = "assets/images/clear.png";
-    }
-    else if (data.weather[0].main == "Clouds") {
-        weatherIcon.src = "assets/images/clouds.png";
-    }
-    else if (data.weather[0].main == "Drizzle") {
-        weatherIcon.src = "assets/images/drizzle.png";
-    }
-    else if (data.weather[0].main == "Rain") {
-        weatherIcon.src = "assets/images/rain.png";
-    }
-    else if (data.weather[0].main == "Mist") {
-        weatherIcon.src = "assets/images/mist.png";
-    }
-    else if (data.weather[0].main == "Snow") {
-        weatherIcon.src = "assets/images/snow.png";
-    }
-
-    document.querySelector(".card").style.display = "block";  
+    setWeatherIcon(data.weather[0].main);
+    document.querySelector(".card").style.display = "block";
     document.querySelector(".error").style.display = "none";
-    }
-
-    
 }
 
-searchBtn.addEventListener("click", ()=>{
-    checkWeather(searchBox.value);
-})
+// Function to display error message
+function displayError() {
+    document.querySelector(".error").style.display = "block";
+    document.querySelector(".card").style.display = "none";
+}
 
+// Function to set weather icon based on weather condition
+function setWeatherIcon(weatherCondition) {
+    const iconMap = {
+        "Clear": "assets/images/clear.png",
+        "Clouds": "assets/images/clouds.png",
+        "Drizzle": "assets/images/drizzle.png",
+        "Rain": "assets/images/rain.png",
+        "Mist": "assets/images/mist.png",
+        "Snow": "assets/images/snow.png"
+    };
+    weatherIcon.src = iconMap[weatherCondition] || "assets/images/default.png";
+}
 
+// Function to locate and center the map on the specified city
+function locateCity(city) {
+    fetch(`https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(city)}&format=json`)
+        .then(response => response.json())
+        .then(data => {
+            if (data.length > 0) {
+                const lat = data[0].lat;
+                const lon = data[0].lon;
+                map.setView([lat, lon], 13);
+            }
+        })
+        .catch(error => console.error('Error:', error));
+}
 
+// Event listener for search button click
+searchBtn.addEventListener("click", () => {
+    const city = searchBox.value.trim();
+    if (city) {
+        checkWeather(city);
+        locateCity(city);
+    }
+});
 
+// Event listener for Enter key press in search input
+searchBox.addEventListener("keypress", (e) => {
+    if (e.key === "Enter") {
+        const city = searchBox.value.trim();
+        if (city) {
+            checkWeather(city);
+            locateCity(city);
+        }
+    }
+});
